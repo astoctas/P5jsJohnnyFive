@@ -30,7 +30,7 @@ Arduino Johnny Five gateway to P5.js or javascript development.
 #### Five
 - This class can be used to use any of the Johnny-five classes of devices,ej: Led, Light, Temperature.
 
-Documentation fo these classes is in /doc/app.md
+Documentation fo these classes is in [/doc/app.md](https://github.com/astoctas/P5jsJohnnyFive/blob/master/doc/app.md)
 
 
 
