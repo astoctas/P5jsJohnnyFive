@@ -49,7 +49,7 @@ Starts analog reporting on pin
 | Name | Type | Optional | Desciption |
 | ---- | ---- | -------- | ---------- |
 | pin | Integer | False | pin number |
-| callback | myCallback | False | function to execute on data received |
+| callback | Function | False | function to execute on data received |
 
 Starts digital reporting on pin
 
@@ -58,7 +58,7 @@ Starts digital reporting on pin
 | Name | Type | Optional | Desciption |
 | ---- | ---- | -------- | ---------- |
 | pin | Integer | False | pin number |
-| callback | myCallback | False | function to execute on data received |
+| callback | Function | False | function to execute on data received |
 
 Initialize and configure I2C device
 
@@ -78,7 +78,7 @@ Starts i2c reporting on device
 | address | Integer | False | device address |
 | register | Integer | False | register to read |
 | bytes | Integer | False | amount of bytes to retreive |
-| callback | myCallback | False | function to execute on data received |
+| callback | Function | False | function to execute on data received |
 
 Reads i2c register on device once
 
