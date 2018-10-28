@@ -2,7 +2,7 @@
 
 Board object to connect to Johnny five board class
 
-#### This
+#### Board Class
 
 Board example: b = new Board();
 
@@ -103,7 +103,7 @@ Writes data on device
 
 Five object to connect to device class
 
-#### This
+#### Five Class
 
 Five
 
