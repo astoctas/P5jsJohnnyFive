@@ -89,7 +89,7 @@ Reads i2c register on device once
 | address | Integer | False | device address |
 | register | Integer | False | register to read |
 | bytes | Integer | False | amount of bytes to retreive |
-| callback | myCallback | False | function to execute on data received |
+| callback | Function | False | function to execute on data received |
 
 Writes data on device
 
@@ -121,7 +121,7 @@ Create event listener
 | ---- | ---- | -------- | ---------- |
 | event | String | False | Event to listen |
 | attributes | Object | False | Attributes to receive from device |
-| callback | myCallback | False | Callback to execute on data received 
+| callback | Function | False | Callback to execute on data received 
  example: gps.on("change", ["latitude","longitude"] , function(d) { console.log(d) }); |
 
 Call method on device
