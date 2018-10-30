@@ -1,0 +1,30 @@
+<html>
+<head>
+  <meta charset="UTF-8">
+  <!-- ARDUINO GATEWAY FILES -->
+  <script language="javascript" type="text/javascript" src="http://localhost:4268/socket.io/socket.io.js"></script>
+  <script language="javascript" type="text/javascript"  src="http://localhost:4268/js/app.js"></script>
+  <!-- PLEASE NO CHANGES BELOW THIS LINE (UNTIL I SAY SO) -->
+  <script language="javascript" type="text/javascript" src="libraries/p5.js"></script>
+  <script language="javascript" type="text/javascript" src="libraries/p5.dom.js"></script>
+  <script language="javascript" type="text/javascript" src="p5_jf_led.js"></script>
+  <!-- OK, YOU CAN MAKE CHANGES BELOW THIS LINE AGAIN -->
+
+  <!-- This line removes any default padding and style. 
+       You might only need one of these values set. -->
+  <style> body {padding: 20px; margin: 0;} 
+  canvas {display: none}
+  </style>
+</head>
+
+<body>
+<p>
+<h1>Led</h1>
+<button onclick="b.call('on()')">On</button>
+<button onclick="b.call('off()')">Off</button>
+<button onclick="b.call('pulse()')">Pulse</button>
+<button onclick="b.call('stop()')">Stop</button>
+</p>
+
+</body>
+</html>

@@ -1,3 +1,4 @@
+'use strict'
 var socket = io.connect('http://localhost:4268');
 
 const LOW = 0;

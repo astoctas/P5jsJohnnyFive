@@ -21,12 +21,12 @@ function handler(req, res) {
     
     /* JOHNNY-FIVE GATEWAY */
     board = new five.Board();
-    instances = new Array();
     
     board.on("ready", function () {
     });
     
-     io.sockets.on('connection', function (socket) {
+    io.sockets.on('connection', function (socket) {
+            let instances = new Array();
     
             socket.on('PINMODE_MESSAGE', function (data) {
                 board.pinMode(data.pin, data.value);
@@ -100,24 +100,30 @@ function handler(req, res) {
                 fn(instances.length - 1);
          })
          
-         socket.on('FIVE_EVENT', function (data, fn) { 
-                    instances[data.id].on(data.event, function () {
-                        results = {};
-                        try {
-                            data.attributes.forEach((reg) => { 
-                                results[reg] = this[reg];
-                            })
-                            socket.emit(data.event+data.id, { data: results });
-                        } catch (error) {
-                            console.log(error);
-                        }
-                      });                        
+         socket.on('FIVE_EVENT', function (data, fn) {
+             if (typeof instances[data.id] == "object") {
+                 instances[data.id].on(data.event, function () {
+                     results = {};
+                     try {
+                         data.attributes.forEach((reg) => {
+                             results[reg] = this[reg];
+                         })
+                         socket.emit(data.event + data.id, { data: results });
+                     } catch (error) {
+                         console.log(error);
+                         fn(false);
+                     }
+                 });
+                 fn(true);
+             } else {
+                 fn(false);
+             }
          })
     
             socket.on('CALL_METHOD', function (data, fn) { 
                 let vm = new VM({ sandbox: { instances: instances, data: data } });
                 try {
-                    let result = vm.run('instances[\'' + data.id + '\'].' + data.method);
+                    let result = vm.run('instances[' + data.id + '].' + data.method);
                 }
                 catch(error) {
                     console.error(error);
