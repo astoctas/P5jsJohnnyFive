@@ -30,7 +30,21 @@ Arduino Johnny Five gateway to P5.js or javascript development.
 #### Five
 - This class can be used to use any of the Johnny-five classes of devices,ej: Led, Light, Temperature.
 
-Documentation fo these classes is in /doc/app.md
+#### Example:
+```c++
+var light = new Five('Light',{controller: 'BH1750'});
+var led = new Five('Led',{pin: 13});
+
+function setup() {
+  light.on("change", ["lux"], function(data) {console.log(data)});
+  led.call('pulse()');
+}
+
+function draw() {
+}
+```
+
+Documentation of these classes is in [/doc/app.md](https://github.com/astoctas/P5jsJohnnyFive/blob/master/doc/app.md)
 
 
 
