@@ -1,10 +1,10 @@
-# App
+# Arduino
 
-Board object to connect to Johnny five board class
+Arduino object to connect to Johnny five board class
 
-#### Board Class
+#### This
 
-Board example: b = new Board();
+Arduino example: b = new Arduino();
 
 Sets mode to pin
 
@@ -49,7 +49,7 @@ Starts analog reporting on pin
 | Name | Type | Optional | Desciption |
 | ---- | ---- | -------- | ---------- |
 | pin | Integer | False | pin number |
-| callback | Function | False | function to execute on data received |
+| callback | myCallback | False | function to execute on data received |
 
 Starts digital reporting on pin
 
@@ -58,7 +58,7 @@ Starts digital reporting on pin
 | Name | Type | Optional | Desciption |
 | ---- | ---- | -------- | ---------- |
 | pin | Integer | False | pin number |
-| callback | Function | False | function to execute on data received |
+| callback | myCallback | False | function to execute on data received |
 
 Initialize and configure I2C device
 
@@ -78,7 +78,7 @@ Starts i2c reporting on device
 | address | Integer | False | device address |
 | register | Integer | False | register to read |
 | bytes | Integer | False | amount of bytes to retreive |
-| callback | Function | False | function to execute on data received |
+| callback | myCallback | False | function to execute on data received |
 
 Reads i2c register on device once
 
@@ -89,7 +89,7 @@ Reads i2c register on device once
 | address | Integer | False | device address |
 | register | Integer | False | register to read |
 | bytes | Integer | False | amount of bytes to retreive |
-| callback | Function | False | function to execute on data received |
+| callback | myCallback | False | function to execute on data received |
 
 Writes data on device
 
@@ -103,7 +103,7 @@ Writes data on device
 
 Five object to connect to device class
 
-#### Five Class
+#### This
 
 Five
 
@@ -121,7 +121,7 @@ Create event listener
 | ---- | ---- | -------- | ---------- |
 | event | String | False | Event to listen |
 | attributes | Object | False | Attributes to receive from device |
-| callback | Function | False | Callback to execute on data received 
+| callback | myCallback | False | Callback to execute on data received 
  example: gps.on("change", ["latitude","longitude"] , function(d) { console.log(d) }); |
 
 Call method on device
