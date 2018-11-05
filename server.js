@@ -2,6 +2,7 @@ var app = require('http').createServer(handler)
 var io = require('socket.io').listen(app, { origins: '*:*' });
 var fs = require('fs');
 var five = require('johnny-five');
+var Interfaz = require("./interfaz")(five);
 const { VM } = require('vm2');
 
 /* WEB SERVER */
@@ -20,74 +21,53 @@ function handler(req, res) {
     }
     
     /* JOHNNY-FIVE GATEWAY */
-    board = new five.Board();
-    
-    board.on("ready", function () {
-    });
-    
-    io.sockets.on('connection', function (socket) {
-            let instances = new Array();
-    
-            socket.on('PINMODE_MESSAGE', function (data) {
-                board.pinMode(data.pin, data.value);
-            });
-    
-            socket.on('DIGITAL_MESSAGE', function (data) {
-                board.pinMode(data.pin, five.Pin.OUTPUT);
-                board.digitalWrite(data.pin, data.value);
-            });
-    
-            socket.on('ANALOG_MESSAGE', function (data) {
-                board.pinMode(data.pin, five.Pin.PWM);
-                board.analogWrite(data.pin, data.value);
-            });
-    
-            socket.on('REPORT_ANALOG', function (data) {
-                board.pinMode(data.pin, five.Pin.ANALOG);
-                board.analogRead(data.pin, function (voltage) {
-                    socket.emit('ANALOG_MESSAGE', { pin: data.pin, value: voltage });
-                });
-            });
-    
-            socket.on('REPORT_DIGITAL', function (data) {
-                board.pinMode(data.pin, five.Pin.INPUT);
-                board.digitalRead(data.pin, function (voltage) {
-                    socket.emit('DIGITAL_MESSAGE', { pin: data.pin, value: voltage });
-                });
-            });
-    
-            socket.on('I2C_CONFIG', function (data) {
-                if (typeof data.delay == "undefined") data.delay = 50;
-                board.i2cConfig({ address: data.address, delay: data.delay } );
-            });
-    
-            socket.on('I2C_READ', function (data) {
-                board.i2cRead(data.address, data.register, data.bytes, function (result) {
-                    socket.emit('I2C_READ', { address: data.address, register: data.register, value: result });
-                });
-            });
-    
-            socket.on('I2C_READ_ONCE', function (data) {
-                board.i2cReadOnce(data.address, data.register, data.bytes, function (result) {
-                    socket.emit('I2C_READ', { address: data.address, register: data.register, value: result });
-                });
-            });
-    
-            socket.on('I2C_WRITE', function (data) {
-                board.i2cWrite(data.address, data.register, data.arrayOfBytes );
-            });
-    
-            socket.on('SERVO_WRITE', function (data) {
-                board.pinMode(data.pin, five.Pin.SERVO);
-                board.servoWrite(data.pin, data.value );
-            });
+board = new five.Board();
+var ifaz;
+var instances = new Array();
 
-            socket.on('LED', function (data) {
-                var led = new five.Led(data.pin);
+board.on("ready", function () {
+    ifaz = new Interfaz();
+});
+
+io.sockets.on('connection', function (socket) {
+
+        socket.on('OUTPUT', function (data) { 
+            ifaz.output(data.index)[data.method](data.param);
+        })
+
+        socket.on('STEPPER', function (data) { 
+            ifaz.stepper(data.index)[data.method](data.param, function (result) { 
+                socket.emit('STEPPER_MESSAGE', { index: data.index, value: result });
             });
-         
-         
-         socket.on('NEW_FIVE', function (data, fn) { 
+        })
+        
+        socket.on('SERVO', function (data) { 
+            ifaz.servo(data.index)[data.method](data.param);
+        })
+        
+        socket.on('ANALOG', function (data) { 
+            ifaz.analog(data.index)[data.method](function (result) {
+                socket.emit('ANALOG_MESSAGE', { index: data.index, value: result });
+            });
+        })
+
+        socket.on('DIGITAL', function (data) { 
+            if (data.method == 'on') {
+                ifaz.digital(data.index)[data.method](function (result) {
+                    socket.emit('DIGITAL_MESSAGE', { index: data.index, value: result });
+                });
+            } else  {
+                ifaz.digital(data.index)[data.method](data.param);
+            }
+        })
+
+        socket.on('I2C', function (data) { 
+            ifaz.i2c(data.address)[data.method](data.register, data.param, function (result) { 
+                socket.emit('I2C_MESSAGE', { address: data.address, register: data.register, value: result });
+            });
+        })
+
+         socket.on('DEVICE', function (data, fn) { 
                 let vm = new VM({ sandbox: { instances: instances, data: data, five: five } });
                 try {
                     let result = vm.run('new five.' + data.device + '(' + JSON.stringify(data.options) + ')');
@@ -100,7 +80,7 @@ function handler(req, res) {
                 fn(instances.length - 1);
          })
          
-         socket.on('FIVE_EVENT', function (data, fn) {
+         socket.on('DEVICE_EVENT', function (data, fn) {
              if (typeof instances[data.id] == "object") {
                  instances[data.id].on(data.event, function () {
                      results = {};
@@ -120,7 +100,7 @@ function handler(req, res) {
              }
          })
     
-            socket.on('CALL_METHOD', function (data, fn) { 
+            socket.on('DEVICE_CALL', function (data, fn) { 
                 let vm = new VM({ sandbox: { instances: instances, data: data } });
                 try {
                     let result = vm.run('instances[' + data.id + '].' + data.method);
@@ -133,4 +113,3 @@ function handler(req, res) {
          })
     
 });
-        

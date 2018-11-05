@@ -10,14 +10,14 @@ const PIN_PWM = 3;
 const PIN_SERVO = 4;
 
 /**
- * Board object to connect to Johnny five board class
- * @this Board
+ * Arduino object to connect to Johnny five board class
+ * @this Arduino
  *
  *
  * example:
- *      b = new Board(); 
+ *      b = new Arduino(); 
  */  
-class Board {
+class Arduino {
   
   constructor() { 
     var me = this;
@@ -238,6 +238,3 @@ class Five {
   }
 
   }
-
-
-
