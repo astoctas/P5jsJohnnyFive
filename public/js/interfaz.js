@@ -7,10 +7,10 @@ const HIGH = 1;
 var OUTPUT = class {
     /**
    * Class Output
-   * @constructor OUTPUT
    *
    * @param index {Integer} output number
    * 
+   * @constructor 
    */
     constructor(index) {
       this.index = index;
