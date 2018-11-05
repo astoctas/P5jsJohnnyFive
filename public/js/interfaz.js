@@ -7,10 +7,10 @@ const HIGH = 1;
 var OUTPUT = class {
     /**
    * Class Output
+   * @constructor Output()
    *
    * @param index {Integer} output number
    * 
-   * @constructor 
    */
     constructor(index) {
       this.index = index;
@@ -85,7 +85,7 @@ var OUTPUT = class {
    * Steps(): Moves the motor the amount of steps
    *
    * @param value {Integer}steps
-   * @callback callback {Function} callback function
+   * @param callback {Function} callback function
    */
     steps(value, callback) {
       socket.emit('STEPPER', { index: this.index, method: 'steps', param: value });
@@ -152,7 +152,7 @@ var   SERVO = class {
     /**
    * On(): Turns reporting on
    *
-   * @callback callback {Function} callback function
+   * @param callback {Function} callback function
    */    
     on(callback) {
       socket.emit('ANALOG', { index: this.index, method: 'on' });
@@ -189,7 +189,7 @@ var  DIGITAL = class {
     /**
    * On(): Turns reporting on
    *
-   * @callback callback {Function} callback function
+   * @param callback {Function} callback function
    */    
     on(callback) {
       socket.emit('DIGITAL', { index: this.index, method: 'on' });
@@ -235,7 +235,7 @@ var  DIGITAL = class {
    *
    * @param register {Integer} register to read
    * @param bytes {Integer} amount of bytes to read
-   * @callback callback {Function} callback function
+   * @param callback {Function} callback function
    */    
     on(register, bytes, callback) {
       socket.emit('I2C', { address: this.address, register: register, method: 'on', param: bytes });
@@ -254,7 +254,7 @@ var  DIGITAL = class {
      *
      * @param register {Integer} register to read
      * @param bytes {Integer} amount of bytes to read
-     * @callback callback {Function} callback function
+     * @param callback {Function} callback function
      */    
     read(register, bytes, callback) { 
       socket.emit('I2C', { address: this.address, register: register, method: 'read', param: bytes });

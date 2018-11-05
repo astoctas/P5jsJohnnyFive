@@ -48,15 +48,14 @@ undefined(index);
 | ---- | ---- | -------- | ---------- |
 | index | Integer | False | motor number |
 
-### callback (Callback)
-
-{Function} callback functionSteps(): Moves the motor the amount of steps
+Steps(): Moves the motor the amount of steps
 
 #### Params
 
 | Name | Type | Optional | Desciption |
 | ---- | ---- | -------- | ---------- |
 | value | Integer | False | steps |
+| callback | Function | False | callback function |
 
 Stop(): Stops the motor
 
@@ -100,9 +99,13 @@ undefined(index);
 | ---- | ---- | -------- | ---------- |
 | index | Integer | False | analog number |
 
-### callback (Callback)
+On(): Turns reporting on
 
-{Function} callback functionOn(): Turns reporting on
+#### Params
+
+| Name | Type | Optional | Desciption |
+| ---- | ---- | -------- | ---------- |
+| callback | Function | False | callback function |
 
 Off(): Turns reporting off
 
@@ -124,9 +127,13 @@ undefined(index);
 | ---- | ---- | -------- | ---------- |
 | index | Integer | False | digital number |
 
-### callback (Callback)
+On(): Turns reporting on
 
-{Function} callback functionOn(): Turns reporting on
+#### Params
+
+| Name | Type | Optional | Desciption |
+| ---- | ---- | -------- | ---------- |
+| callback | Function | False | callback function |
 
 Off(): Turns reporting off
 
@@ -150,9 +157,7 @@ undefined(address);
 | ---- | ---- | -------- | ---------- |
 | address | Integer | False | device address |
 
-### callback (Callback)
-
-{Function} callback functionOn(): Turns reporting on
+On(): Turns reporting on
 
 #### Params
 
@@ -160,13 +165,12 @@ undefined(address);
 | ---- | ---- | -------- | ---------- |
 | register | Integer | False | register to read |
 | bytes | Integer | False | amount of bytes to read |
+| callback | Function | False | callback function |
 
 Off(): Turns reporting off 
  off(register) { socket.emit('I2C', { address: this.address, register: register, method: 'off' }); }
 
-### callback (Callback)
-
-{Function} callback functionRead(): Reads register once
+Read(): Reads register once
 
 #### Params
 
@@ -174,6 +178,7 @@ Off(): Turns reporting off
 | ---- | ---- | -------- | ---------- |
 | register | Integer | False | register to read |
 | bytes | Integer | False | amount of bytes to read |
+| callback | Function | False | callback function |
 
 Write(): Writes data into register
 
