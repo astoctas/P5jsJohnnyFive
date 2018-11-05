@@ -1,6 +1,10 @@
 # Interfaz
 
-Output
+Class Output
+
+```js
+undefined(index);
+```
 
 #### Params
 
@@ -8,15 +12,15 @@ Output
 | ---- | ---- | -------- | ---------- |
 | index | Integer | False | output number |
 
-Turns ouput on
+On(): Turns ouput on
 
-Turns ouput off
+Off(): Turns ouput off
 
-Applies brake
+Brake(): Applies brake
 
-Inverts direction
+Inverse(): Inverts direction
 
-Sets direction
+Direction(): Sets direction
 
 #### Params
 
@@ -24,7 +28,7 @@ Sets direction
 | ---- | ---- | -------- | ---------- |
 | dir | Integer | False | direction: 0, 1 |
 
-Sets pwm power
+Power(): Sets pwm power
 
 #### Params
 
@@ -32,7 +36,11 @@ Sets pwm power
 | ---- | ---- | -------- | ---------- |
 | pow | Integer | False | power: 0 to 255 |
 
-Stepper
+class Stepper
+
+```js
+undefined(index);
+```
 
 #### Params
 
@@ -40,18 +48,19 @@ Stepper
 | ---- | ---- | -------- | ---------- |
 | index | Integer | False | motor number |
 
-Moves the motor the amount of steps
+### callback (Callback)
+
+{Function} callback functionSteps(): Moves the motor the amount of steps
 
 #### Params
 
 | Name | Type | Optional | Desciption |
 | ---- | ---- | -------- | ---------- |
 | value | Integer | False | steps |
-| callback | Function | False | callback function |
 
-Stops the motor
+Stop(): Stops the motor
 
-Changes motor speed
+Speed(): Changes motor speed
 
 #### Params
 
@@ -59,7 +68,11 @@ Changes motor speed
 | ---- | ---- | -------- | ---------- |
 | value | Integer | False | speed in steps per second |
 
-Servo
+class Servo
+
+```js
+undefined(index);
+```
 
 #### Params
 
@@ -67,7 +80,7 @@ Servo
 | ---- | ---- | -------- | ---------- |
 | index | Integer | False | motor number |
 
-Sets position
+Position(): Sets position
 
 #### Params
 
@@ -75,7 +88,11 @@ Sets position
 | ---- | ---- | -------- | ---------- |
 | value | Integer | False | servo position: 0 to 180 |
 
-Analog
+class Analog
+
+```js
+undefined(index);
+```
 
 #### Params
 
@@ -83,7 +100,11 @@ Analog
 | ---- | ---- | -------- | ---------- |
 | index | Integer | False | analog number |
 
-Turns reporting on
+### callback (Callback)
+
+{Function} callback functionOn(): Turns reporting on
+
+Off(): Turns reporting off
 
 #### Params
 
@@ -91,15 +112,11 @@ Turns reporting on
 | ---- | ---- | -------- | ---------- |
 | callback | Function | False | callback function |
 
-Turns reporting off
+class Digital
 
-#### Params
-
-| Name | Type | Optional | Desciption |
-| ---- | ---- | -------- | ---------- |
-| callback | Function | False | callback function |
-
-Digital
+```js
+undefined(index);
+```
 
 #### Params
 
@@ -107,17 +124,13 @@ Digital
 | ---- | ---- | -------- | ---------- |
 | index | Integer | False | digital number |
 
-Turns reporting on
+### callback (Callback)
 
-#### Params
+{Function} callback functionOn(): Turns reporting on
 
-| Name | Type | Optional | Desciption |
-| ---- | ---- | -------- | ---------- |
-| callback | Function | False | callback function |
+Off(): Turns reporting off
 
-Turns reporting off
-
-Enable or disable pullup
+Pullup(): Enable or disable pullup
 
 #### Params
 
@@ -125,7 +138,11 @@ Enable or disable pullup
 | ---- | ---- | -------- | ---------- |
 | enable | Boolean | False | Enables or disables. |
 
-I2C
+class I2C
+
+```js
+undefined(address);
+```
 
 #### Params
 
@@ -133,7 +150,9 @@ I2C
 | ---- | ---- | -------- | ---------- |
 | address | Integer | False | device address |
 
-Turns reporting on
+### callback (Callback)
+
+{Function} callback functionOn(): Turns reporting on
 
 #### Params
 
@@ -141,11 +160,13 @@ Turns reporting on
 | ---- | ---- | -------- | ---------- |
 | register | Integer | False | register to read |
 | bytes | Integer | False | amount of bytes to read |
-| callback | Function | False | callback function |
 
-Turns reporting off
+Off(): Turns reporting off 
+ off(register) { socket.emit('I2C', { address: this.address, register: register, method: 'off' }); }
 
-Reads register once
+### callback (Callback)
+
+{Function} callback functionRead(): Reads register once
 
 #### Params
 
@@ -153,9 +174,8 @@ Reads register once
 | ---- | ---- | -------- | ---------- |
 | register | Integer | False | register to read |
 | bytes | Integer | False | amount of bytes to read |
-| callback | Function | False | callback function |
 
-Writes data into register
+Write(): Writes data into register
 
 #### Params
 
@@ -164,11 +184,9 @@ Writes data into register
 | register | Integer | False | register to read |
 | data | Array of bytes | False | data to write |
 
-Device object to connect to device class
+Device object to connect to device class class Device
 
 #### This
-
-Device
 
 | Name | Type | Desciption |
 | ---- | ---- | ---------- |
@@ -176,7 +194,7 @@ Device
 | options | Object | Options to pass as parameters of class 
  example: light = new Device('Light', { controller: "BH1750"}); led = new Device('Led', { pin: 13}); |
 
-Create event listener
+On(): Create event listener
 
 #### Params
 
@@ -187,7 +205,7 @@ Create event listener
 | callback | myCallback | False | Callback to execute on data received 
  example: gps.on("change", ["latitude","longitude"] , function(d) { console.log(d) }); |
 
-Call method on device
+Call(): Call method on device
 
 #### Params
 

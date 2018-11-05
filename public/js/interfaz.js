@@ -6,7 +6,8 @@ const HIGH = 1;
 
 var OUTPUT = class {
     /**
-   * Output
+   * Class Output
+   * @constructor
    *
    * @param index {Integer} output number
    * 
@@ -15,35 +16,35 @@ var OUTPUT = class {
       this.index = index;
     }
     /**
-   * Turns ouput on
+   * On(): Turns ouput on
    *
    */
     on() {
       socket.emit('OUTPUT', { index: this.index, method: 'on' });
     }
     /**
-   * Turns ouput off
+   * Off(): Turns ouput off
    *
    */
     off() {
       socket.emit('OUTPUT', { index: this.index, method: 'off' });
     }
     /**
-   * Applies brake
+   * Brake(): Applies brake
    *
    */
     brake() {
       socket.emit('OUTPUT', { index: this.index, method: 'brake' });
     }
     /**
-   * Inverts direction
+   * Inverse(): Inverts direction
    *
    */
     inverse() {
       socket.emit('OUTPUT', { index: this.index, method: 'inverse' }); 
     }
     /**
-   * Sets direction
+   * Direction(): Sets direction
    *
    * @param dir {Integer} direction: 0, 1
    * 
@@ -52,7 +53,7 @@ var OUTPUT = class {
       socket.emit('OUTPUT', { index: this.index, method: 'direction', param: dir });
     }
     /**
-   * Sets pwm power
+   * Power(): Sets pwm power
    *
    * @param pow {Integer} power: 0 to 255
    * 
@@ -65,7 +66,8 @@ var OUTPUT = class {
 
  var STEPPER = class {
     /**
-   * Stepper
+   * class Stepper
+   * @constructor
    *
    * @param index {Integer} motor number
    * 
@@ -80,10 +82,10 @@ var OUTPUT = class {
       });
     }
     /**
-   * Moves the motor the amount of steps
+   * Steps(): Moves the motor the amount of steps
    *
    * @param value {Integer}steps
-   * @param callback {Function} callback function
+   * @callback callback {Function} callback function
    */
     steps(value, callback) {
       socket.emit('STEPPER', { index: this.index, method: 'steps', param: value });
@@ -91,14 +93,14 @@ var OUTPUT = class {
         this.callback = callback;
   }
   /**
- * Stops the motor 
+ * Stop(): Stops the motor 
  *
  */
   stop() {
     socket.emit('STEPPER', { index: this.index, method: 'stop' });
   }
   /**
- * Changes motor speed
+ * Speed(): Changes motor speed
  *
  * @param value {Integer} speed in steps per second
  * 
@@ -110,7 +112,8 @@ var OUTPUT = class {
 
 var   SERVO = class {
     /**
-   * Servo
+   * class Servo
+   * @constructor
    *
    * @param index {Integer} motor number
    * 
@@ -119,7 +122,7 @@ var   SERVO = class {
       this.index = index;
     }
     /**
-   * Sets position
+   * Position(): Sets position
    *
    * @param value {Integer}servo position: 0 to 180
    * 
@@ -131,7 +134,8 @@ var   SERVO = class {
 
  var  ANALOG = class {
     /**
-   * Analog
+   * class Analog
+   * @constructor
    *
    * @param index {Integer} analog number
    * 
@@ -146,9 +150,9 @@ var   SERVO = class {
       });      
     }
     /**
-   * Turns reporting on
+   * On(): Turns reporting on
    *
-   * @param callback {Function} callback function
+   * @callback callback {Function} callback function
    */    
     on(callback) {
       socket.emit('ANALOG', { index: this.index, method: 'on' });
@@ -156,7 +160,7 @@ var   SERVO = class {
       this.callback = callback;
     }
     /**
-   * Turns reporting off
+   * Off(): Turns reporting off
    *
    * @param callback {Function} callback function
    */       
@@ -167,7 +171,8 @@ var   SERVO = class {
 
 var  DIGITAL = class {
     /**
-   * Digital
+   * class Digital
+   * @constructor
    *
    * @param index {Integer} digital number
    * 
@@ -182,9 +187,9 @@ var  DIGITAL = class {
       });      
     }
     /**
-   * Turns reporting on
+   * On(): Turns reporting on
    *
-   * @param callback {Function} callback function
+   * @callback callback {Function} callback function
    */    
     on(callback) {
       socket.emit('DIGITAL', { index: this.index, method: 'on' });
@@ -192,14 +197,14 @@ var  DIGITAL = class {
       this.callback = callback;
     }
     /**
-   * Turns reporting off
+   * Off(): Turns reporting off
    *
    */       
     off() { 
       socket.emit('DIGITAL', { index: this.index, method: 'off' });
     }
     /**
-   * Enable or disable pullup
+   * Pullup(): Enable or disable pullup
    *
    * @param enable {Boolean} Enables or disables.
    */       
@@ -210,7 +215,8 @@ var  DIGITAL = class {
 
   var I2C = class {
     /**
-   * I2C
+   * class I2C
+   * @constructor
    *
    * @param address {Integer} device address
    * 
@@ -225,11 +231,11 @@ var  DIGITAL = class {
       });
     }
     /**
-   * Turns reporting on
+   * On(): Turns reporting on
    *
    * @param register {Integer} register to read
    * @param bytes {Integer} amount of bytes to read
-   * @param callback {Function} callback function
+   * @callback callback {Function} callback function
    */    
     on(register, bytes, callback) {
       socket.emit('I2C', { address: this.address, register: register, method: 'on', param: bytes });
@@ -237,18 +243,18 @@ var  DIGITAL = class {
       this.callback = callback;
     }
     /**
-   * Turns reporting off
+   * Off(): Turns reporting off
    *
-   */           
-    off(register) { 
-      socket.emit('I2C', { address: this.address, register: register, method: 'off' });
+   off(register) { 
+     socket.emit('I2C', { address: this.address, register: register, method: 'off' });
     }
+*/           
       /**
-     * Reads register once
+     * Read(): Reads register once
      *
      * @param register {Integer} register to read
      * @param bytes {Integer} amount of bytes to read
-     * @param callback {Function} callback function
+     * @callback callback {Function} callback function
      */    
     read(register, bytes, callback) { 
       socket.emit('I2C', { address: this.address, register: register, method: 'read', param: bytes });
@@ -256,7 +262,7 @@ var  DIGITAL = class {
       this.callback = callback;
     }  
     /**
-   * Writes data into register
+   * Write(): Writes data into register
    *
    * @param register {Integer} register to read
    * @param data {Array of bytes} data to write
@@ -268,7 +274,7 @@ var  DIGITAL = class {
 
 /**
  * Device object to connect to device class
- * @this Device
+ * class Device
  *
  * @this .device {String} Name of class.
  * @this .options {Object} Options to pass as parameters of class
@@ -289,7 +295,7 @@ class Device {
   }
 
 /**
- * Create event listener
+ * On(): Create event listener
  *
  * @param event {String} Event to listen
  * @param attributes {Object} Attributes to receive from device
@@ -310,7 +316,7 @@ class Device {
   }
 
 /**
- * Call method on device
+ * Call(): Call method on device
  *
  * @param method {String} method to run with parenthesis and parameters
  * 
